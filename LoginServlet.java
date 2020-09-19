@@ -39,9 +39,11 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		response.setContentType("text/html");
+                PrintWriter out = response.getWriter();
+	
 		String username = request.getParameter("loginid");
-	    String password = request.getParameter("pwd");
-	    try {
+	        String password = request.getParameter("pwd");
+	        try {
 	        Class.forName("com.mysql.jdbc.Driver");
 
 	        Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/PetRegistration","root","root");  
@@ -51,20 +53,20 @@ public class LoginServlet extends HttpServlet {
 	        ResultSet rs = st.executeQuery(query);
 	        if (rs.next()) {
 	        	 RequestDispatcher rd1=request.getRequestDispatcher("/success.html");  
-                 rd1.forward(request,response); 
+                         rd1.forward(request,response); 
 
-	        } else {
+	        } 
+                else {
 	        	RequestDispatcher rd2=request.getRequestDispatcher("/error.html");  
-                rd2.forward(request,response); 
+                        rd2.forward(request,response); 
 	        }
 	        rs.close();
 	        st.close();
-	       // System.out.println("test :" + msg);
-	        PrintWriter out = response.getWriter();
-	    } 
-	    catch (Exception e) {
+	      
+	       } 
+	       catch (Exception e) {
 	        e.printStackTrace();
-	    }
+	      }
 
 	}
 		
